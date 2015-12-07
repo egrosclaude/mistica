@@ -1,0 +1,34 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE insumos (
+	iid INTEGER NOT NULL, 
+	descr VARCHAR NOT NULL, 
+	cost FLOAT, 
+	cant FLOAT, 
+	unid VARCHAR, 
+	PRIMARY KEY (iid), 
+	UNIQUE (descr)
+);
+INSERT INTO "insumos" VALUES(1,'AAA',1.0,2.0,'u');
+INSERT INTO "insumos" VALUES(2,'BBB',2.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(3,'aaa',1.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(4,'bbb',1.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(5,'ccc',1.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(6,'dss',2.0,2.0,'u');
+INSERT INTO "insumos" VALUES(7,'aaab',2.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(8,'aaabc',2.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(9,'aaabcd',2.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(10,'aaabcda',2.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(11,'aaabcdas',2.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(12,'aaabcdasa',2.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(13,'aaabcdasaas',2.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(14,'AAABB',1.0,2.0,'');
+INSERT INTO "insumos" VALUES(15,'ACDElF',1.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(16,'FFDFDA',1.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(17,'aasdsdsd',1.0,2.0,'L');
+INSERT INTO "insumos" VALUES(18,'BBDS',1.0,2.0,'ml');
+INSERT INTO "insumos" VALUES(19,'Aceite esencial de almendras',250.0,125.0,'ml');
+INSERT INTO "insumos" VALUES(20,'Aceite esencial de almendras puro',250.0,125.0,'ml');
+INSERT INTO "insumos" VALUES(21,'Aceite de almendras',12.0,2.0,'');
+INSERT INTO "insumos" VALUES(22,'Pitoto Pasteur',15.0,1.0,'u');
+COMMIT;
