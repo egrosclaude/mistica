@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+</head>
+<body>
+
+<template id="insumos.html">
+  <ons-page id="insumos">
+  <ons-toolbar>
+  <div class="center">Insumos</div>
+  </ons-toolbar>
+  <ons-button id="buttonInsumos">Insumos</ons-button>
+</ons-page>
+</template>
+
+<template id="productos.html">
+  <ons-page id="productos">
+  <ons-toolbar>
+  <div class="center">Productos</div>
+  </ons-toolbar>
+  <ons-button id="buttonProductos">Producto</ons-button>
+</ons-page>
+</template>
+
+<template id="contactos.html">
+  <ons-page id="contactos">
+  <ons-toolbar>
+  <div class="center">Contactos</div>
+  </ons-toolbar>
+  <ons-button id="buttonClientes">Cliente</ons-button>
+  <ons-button>Proveedor</ons-button>
+</ons-page>
+</template>
+
+<ons-navigator id="Nav" page="insumos.html"></ons-navigator>
+
+<script>
+document.addEventListener('init', function(event) {
+  var page = event.target;
+  if(page.id === 'productos') {
+    page.querySelector('#buttonProductos').onclick = function(){
+      document.querySelector('#Nav').pushPage('contactos', {data: {title: 'Page 2'}});
+
+    };
+  } else if(page.id === 'contactos') {
+      page.querySelector('ons-toolbar .right').innerHTML = page.data.title;
+  }
+});
+</script>
+</body>
+</html>
