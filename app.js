@@ -11,6 +11,10 @@ var users = require('./routes/users');
 var handlebars = require("express-handlebars");
 var app = express();
 
+
+var Insumos = require('./models/insumos');
+
+
 // view engine setup
 ////app.set('views', path.join(__dirname, 'public/javascripts/templates'));
 //app.set('view engine', 'jade');

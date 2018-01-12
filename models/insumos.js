@@ -1,30 +1,22 @@
 // insumos
 
+var mongoose = require('mongoose');
 
-var sql = require('mongoose');
+var Schema = mongoose.Schema;
 
-var insumosSchema = mongoose.Schema({
-nombre: String,
-unidades: String,
-firstName: String,
-lastName: String,
-email: String,
-address1: String,
-address2: String,
-city: String,
-state: String,
-zip: String,
-phone: String,
-salesNotes: [{
-date: Date,
-salespersonId: Number,
-notes: String,
-}],
+var insumosSchema = Schema({
+	nombre: { type:String, required:true },
+	unidades: String,
+	costo: Number,
+	propiedades: [{ type:Schema.ObjectId, ref:'Propiedades'}],
 });
 
+//customerSchema.methods.getOrders = function(){
+//return Orders.find({ customerId: this._id });
+//};
 
-customerSchema.methods.getOrders = function(){
-return Orders.find({ customerId: this._id });
+insumosSchema.methods.getInsumo = () => {
 };
 
-module.exports = mongoose.model('insumos', insumosSchema);
+var Insumos = mongoose.model('insumos', insumosSchema);
+module.exports = Insumos;
