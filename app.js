@@ -1,40 +1,43 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
-var logger = require('morgan');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost/misticadb';
+mongoose.connect(mongoDB, { useMongoClient: true });
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+ 
 
-var handlebars = require("express-handlebars");
-var app = express();
-
-
-var Insumos = require('./models/insumos');
-
-
-// view engine setup
-////app.set('views', path.join(__dirname, 'public/javascripts/templates'));
-//app.set('view engine', 'jade');
-app.engine('handlebars', handlebars({
+var app = express(),hbs;
+var exphbs = require("express-handlebars");
+hbs = exphbs.create({
   defaultLayout: 'main', 
   layoutsDir: path.join(__dirname,'views/layouts'),
   partialsDir: path.join(__dirname, 'views/partials'),
   extname: '.hbs'
-}));
-app.set('view engine', 'handlebars');
+});
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
+
 
 app.use(favicon());
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+var routes = require('./routes/index');
 app.use('/', routes);
-//app.use('/users', users);
+
+var Insumos = require('./models/insumos');
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
