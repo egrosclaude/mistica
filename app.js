@@ -14,7 +14,8 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
  
 
-var app = express(),hbs;
+var app = express(),
+	hbs;
 var exphbs = require("express-handlebars");
 hbs = exphbs.create({
   defaultLayout: 'main', 
@@ -37,7 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 var routes = require('./routes/index');
 app.use('/', routes);
 
-var Insumos = require('./models/insumos');
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -66,7 +66,8 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        //error: {}
+		error: err
     });
 });
 
