@@ -2,14 +2,31 @@
 <!---------------- INSUMOS ------------------------->
 
     <div class="container">
-	{{title}}
 	<p><a id="insumo_nuevo" class="btn  btn-primary pull-left" href="/insumos/nuevo">Nuevo</a></p>
 	</div>
 	<div class="container">
     <p>
+    <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Insumo</th>
+                  <th>Costo</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
 		{{#each insumos}}
-		  <p>{{@index}}. {{this.nombre}} -> {{this.costo}}</p>
+                <tr>
+                  <td>{{@index}}</td>
+                  <td>{{this.nombre}}</td>
+                  <td>{{this.costo}}</td>
+                </tr>
 		{{/each}}
+			</table>
+	</div>
 	</p> 
     </div> <!-- /container -->
 
