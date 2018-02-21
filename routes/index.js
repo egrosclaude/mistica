@@ -9,7 +9,7 @@ var Insumos = require('../models/insumos');
 const listarInsumos = (req,res,next) => {
 	Insumos.find({}, function(err, insumos) {
     	if (!err){ 
-    	    console.log(insumos);
+    	    //console.log(insumos);
 			res.render('insumos.hbs', { title: 'Insumos', insumos: insumos} ); 
     	} else {throw err;}
 	});

@@ -13,6 +13,7 @@
     "express-handlebars": "*",
     "mongoose": "^4.13.9",
     "morgan": "~1.0.0",
+    "popper.js": "^1.12.9",
     "send": "^0.16.1",
     "static-favicon": "~1.0.0"
   }

@@ -1,32 +1,34 @@
 
 <!---------------- INSUMOS ------------------------->
 
+    <p></p>
     <div class="container">
-	<p><a id="insumo_nuevo" class="btn  btn-primary pull-left" href="/insumos/nuevo">Nuevo</a></p>
+
+	<p>
+ 	   <a id="insumo_nuevo" class="btn btn-sm btn-outline-primary pull-left" href="/insumos/nuevo">Nuevo</a>
+ 	   <a id="insumo_borrar" class="btn btn-sm btn-outline-primary pull-right" href="/insumos/borrar">Borrar</a>
+	</p>
 	</div>
-	<div class="container">
-    <p>
-    <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-sm">
               <thead>
                 <tr>
                   <th></th>
                   <th>Insumo</th>
                   <th>Costo</th>
-                  <th></th>
-                  <th></th>
+                  <th>Unid</th>
                 </tr>
               </thead>
               <tbody>
 		{{#each insumos}}
                 <tr>
-                  <td>{{@index}}</td>
+<!--                  <td>{{@index}}</td> -->
+				  <td><input type="checkbox"></td>
                   <td>{{this.nombre}}</td>
                   <td>{{this.costo}}</td>
+				  <td>/{{this.unidades}}</td>
                 </tr>
 		{{/each}}
 			</table>
-	</div>
 	</p> 
     </div> <!-- /container -->
 
