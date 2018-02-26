@@ -80,6 +80,17 @@
 
 
 		    <li><!------------------ TAGS --------------------->
+
+				<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+					{{#each tags}}
+		            <label>
+						<input class="uk-checkbox" 
+						type="checkbox" 
+						name="tag-{{this.id}}" checked>{{this.nombre}}
+					</label>
+					{{/each}} 
+        		</div>
+
 				<form class="uk-form-horizontal uk-margin-large" 
 					action="/insumos/tags"
 					 method="POST">
