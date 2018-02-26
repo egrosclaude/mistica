@@ -26,8 +26,8 @@ Tags.list = (req,res) => {
 
 
 Tags.create = (req, res, next) => {
-	if(req.body.nombretag) {
-		new Tags({ nombre: req.body.nombretag }).save( 
+	if(req.body.nuevotag) {
+		new Tags({ nombre: req.body.nuevotag }).save( 
 			(err, tag) => {
 				if(!err) { 
 					console.log("Tag creado", tag); 

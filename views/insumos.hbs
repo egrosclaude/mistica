@@ -92,7 +92,7 @@
 						<input class="uk-input uk-form-small uk-form-width-small" type="text" 
 							id="nuevotag" 
 							value=""
-							name="nombre">
+							name="nuevotag">
         			</div>
 			    </div>
 				<hr> <!-------------------------------------->
@@ -103,7 +103,7 @@
 						type="checkbox" 
 						name="{{this.id}}" checked>{{this.id}}
 					</label>
-				{{/each}} <!--propiedades -->
+					{{/each}} <!--propiedades -->
         		</div>
 				<hr> <!-------------------------------------->
 				<input class="uk-button uk-button-primary uk-button-small uk-align-right" type="submit" value="Confirmar">
@@ -121,7 +121,7 @@
 				<p></p>
 			</div>
 			<hr>
-			<a class="uk-button uk-button-danger uk-button-small uk-align-right uk-modal-close" href="/insumos/delete/{{this._id}}">Confirmar</a>
+			<a class="uk-button uk-button-danger uk-button-small uk-align-right " href="/insumos/delete/{{this._id}}">Confirmar</a>
 			<a class="uk-button uk-button-default uk-button-primary uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
 
 			</li>
