@@ -1,38 +1,137 @@
 
-<!---------------- INSUMOS ------------------------->
+<!---------------- INSUMOS ------------------>
 
-    <p></p>
-    <div class="container">
+<table class="uk-table uk-table-striped uk-table-small">
+  <thead>
+	<tr>
+		<th>Insumo</th>
+		<th>Costo</th>
+	</tr>
+  </thead>
+  <tbody>
+  {{#each insumos}}
+	<tr uk-toggle="target: #insumos-modal-{{@index}}">
+		<td>{{this.nombre}}</td>
+		<td>{{this.costo}}</td>
+	</tr>
 
-	<p>
- 	   <a id="insumo_nuevo" class="btn btn-sm btn-outline-primary pull-left" href="/insumos/nuevo">Nuevo</a>
- 	   <a id="insumo_borrar" class="btn btn-sm btn-outline-primary pull-right" href="/insumos/borrar">Borrar</a>
-	</p>
-	</div>
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Insumo</th>
-                  <th>Costo</th>
-                  <th>Unid</th>
-                </tr>
-              </thead>
-              <tbody>
-		{{#each insumos}}
-                <tr>
-<!--                  <td>{{@index}}</td> -->
-				  <td><input type="checkbox"></td>
-                  <td>{{this.nombre}}</td>
-                  <td>{{this.costo}}</td>
-				  <td>/{{this.unidades}}</td>
-                </tr>
-		{{/each}}
-			</table>
-	</p> 
-    </div> <!-- /container -->
+	<!-- modal -->
+	<div id="insumos-modal-{{@index}}" uk-modal>
+      <div class="uk-modal-dialog">
+        <div class="uk-modal-header">
+            <div class="uk-modal-title" id="insumo-titulo-{{@index}}">{{this.nombre}}</div>
+        </div>
+        <div class="uk-modal-body">
+		<!-- body -->
+
+		<ul class="uk-subnav uk-subnav-pill" uk-switcher>
+		    <li><a href="#">Datos</a></li>
+		    <li><a href="#">Tags</a></li>
+		    <li><a href="#">Borrar</a></li>
+		</ul>
+
+		<ul class="uk-switcher uk-margin">
+		    <li><!------------------ DATOS --------------------->
+				<form class="uk-form-horizontal" action="/insumos/edit" method="POST">
+				<input type="hidden" name="id" value="{{this._id}}">
+			    <div class="uk-margin">
+			        <label class="uk-form-label" for="campoNombre-{{@index}}">Nombre</label>
+					<div class="uk-form-controls-text">
+        		    	<input class="uk-input uk-form-small" type="text"
+							id="campoNombre-{{@index}}" 
+							value="{{this.nombre}}"
+							name="nombre">
+        			</div>
+			    </div>
+			    <div class="uk-margin">
+			        <label class="uk-form-label" for="campoUnidades-{{@index}}">Unidades</label>
+			        <div class="uk-form-controls uk-form-controls-select">
+						<select class="uk-select uk-form-small uk-form-width-small"
+							id="campoUnidades-{{@index}}" name="unidades">
+					        <option>g</option>
+					        <option>ml</option>
+					        <option>L</option>
+					        <option>Kg</option>
+						</select>
+						<!--
+						<input class="uk-input uk-form-small uk-form-width-small" 
+							type="select"
+							id="campoUnidades-{{@index}}" 
+							value="{{this.unidades}}"
+							name="unidades">
+						-->
+        			</div>
+			    </div>
+			    <div class="uk-margin">
+			        <label class="uk-form-label">Precio de costo</label>
+			        <div class="uk-form-controls uk-form-controls-text">
+						<input class="uk-input uk-form-small uk-form-width-small" type="text" 
+							id="campoCosto-{{@index}}" 
+							value="{{this.costo}}"
+							name="costo">
+        			</div>
+			    </div>
+				<hr>
+				<input class="uk-button uk-button-primary uk-button-small uk-align-right" type="submit" value="Confirmar">
+				<a class="uk-button uk-button-default uk-button-primary uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
+				</form>
+			</li>
 
 
 
+		    <li><!------------------ TAGS --------------------->
+				<form class="uk-form-horizontal uk-margin-large" 
+					action="/insumos/tags"
+					 method="POST">
+
+				<input type="hidden" name="id" value="{{this._id}}">
+
+			    <div class="uk-margin">
+			        <label class="uk-form-label">Nuevo tag</label>
+			        <div class="uk-form-controls uk-form-controls-text">
+						<input class="uk-input uk-form-small uk-form-width-small" type="text" 
+							id="nuevotag" 
+							value=""
+							name="nombre">
+        			</div>
+			    </div>
+				<hr> <!-------------------------------------->
+				<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+					{{#each this.propiedades}}
+		            <label>
+						<input class="uk-checkbox" 
+						type="checkbox" 
+						name="{{this.id}}" checked>{{this.id}}
+					</label>
+				{{/each}} <!--propiedades -->
+        		</div>
+				<hr> <!-------------------------------------->
+				<input class="uk-button uk-button-primary uk-button-small uk-align-right" type="submit" value="Confirmar">
+				<a class="uk-button uk-button-default uk-button-primary uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
+				</form>
+			</li>
+
+
+
+
+
+		    <li><!------------------ BORRAR --------------------->
+			<div class="uk-flex uk-flex-center"> 
+					<div class="uk-card uk-card-default uk-card-body uk-card-secondary uk-align-center">¿Borrar el insumo <strong>{{this.nombre}}</strong>?</div>
+				<p></p>
+			</div>
+			<hr>
+			<a class="uk-button uk-button-danger uk-button-small uk-align-right uk-modal-close" href="/insumos/delete/{{this._id}}">Confirmar</a>
+			<a class="uk-button uk-button-default uk-button-primary uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
+
+			</li>
+		</ul>
+		</div> 	<!-- /modal-body -->
+        <button class="uk-modal-close-default" uk-close></button>
+      </div> <!-- /modal -->
+	</div> <!-- /modal-dialog -->
+  {{/each}}
+  </tbody>
+</table>
 
 

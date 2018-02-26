@@ -1,37 +1,56 @@
 var express = require('express');
+var async = require('async');
 var router = express.Router();
 
 
 var Insumos = require('../models/insumos');
+var Tags = require('../models/tags');
 
 
 
-const listarInsumos = (req,res,next) => {
-	Insumos.find({}, function(err, insumos) {
-    	if (!err){ 
-    	    //console.log(insumos);
-			res.render('insumos.hbs', { title: 'Insumos', insumos: insumos} ); 
-    	} else {throw err;}
-	});
-};
-
-const grabarInsumo = (req,res,next) => {
-	//console.log('RECIBIDO insumos/nuevo',req.body);
-	var newInsumo = new Insumos(req.body).save(function(err) {
-		if(!err) {
-			//console.log('insumo grabado');
-			next();
-		}
-	});
-};
-
-router.get('/insumos/nuevo', (req,res,next) => {
-	res.render('insumos-form.hbs', { } ); 
+//router.get('/insumos/nuevo', Insumos.create);
+//router.post('/insumos/nuevo', Insumos.doCreate);
+router.post('/insumos/edit', Insumos.edit);
+router.get('/insumos/delete/:id', Insumos.delete);
+router.post('/insumos/tags', Tags.create, Insumos.edit);
+router.get('/insumos?search', Insumos.search);
+/* https://stackoverflow.com/questions/26402781/nodejs-mongoose-render-two-models-from-collections
+router.get('/insumos', 
+	(req,res) => {
+		var listaInsumos = Insumos.find(Insumos.makekey(req,res));
+		var listaTags = Tags.find({});
+		var listaVars = { 
+				insumos: listaInsumos.exec.bind(listaInsumos),
+				tags: listaTags.exec.bind(listaTags),
+		};
+	 	
+		async.parallel(listaVars, (err,listado) => {
+	        if(err) {
+		        res.render('insumos.hbs',listado);
+        	} else {
+				res.status(500).send(err);
+    		}
+		});
+	}
+);
+*/
+router.get('/insumos', (req, res) => {
+    Insumos.find(function (err, insumos) {
+        Tags.find(function (err, tags) {
+			console.log(tags);
+            res.render('insumos', {
+				title: 'Insumos',
+                insumos : insumos,
+                tags : tags
+            });
+        });
+    });
 });
 
-router.post('/insumos/nuevo', grabarInsumo, listarInsumos);
+router.get('/tags/delete/:id', Tags.delete);
+router.post('/tags', Tags.create);
+router.get('/tags', Tags.list);
 
-router.get('/insumos', listarInsumos);
 
 router.get('/formulas', function(req, res) {
   console.log('estoy en formulas');

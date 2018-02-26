@@ -26,13 +26,13 @@ hbs = exphbs.create({
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
-
 app.use(favicon());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser()); 
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 var routes = require('./routes/index');
