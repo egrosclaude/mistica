@@ -1,4 +1,4 @@
-	
+
 <!---------------- INSUMOS ------------------>
 
 <table class="uk-table uk-table-striped uk-table-small">
@@ -10,19 +10,14 @@
   </thead>
   <tbody>
   {{#each insumos}}
-	<!-- <tr uk-toggle="target: #insumos-modal" id="tr-{{this._id}}" onclick="fireModal('tr-{{this._id}}');"> -->
-		<tr id="tr-{{this._id}}" onclick="fireModal('{{this._id}}');"> 
+	<tr uk-toggle="target: #insumos-modal-{{@index}}">
 		<td>{{this.nombre}}</td>
 		<td>{{this.costo}}</td>
 	</tr>
-  {{/each}}
-  </tbody>
-</table>
-
 
 	<!-- modal -->
-	<div id="insumos-modal" uk-modal>
-      <div class="uk-modal-dialog" id="insumos-modal-dialog">
+	<div id="insumos-modal-{{@index}}" uk-modal>
+      <div class="uk-modal-dialog">
         <div class="uk-modal-header">
             <div class="uk-modal-title" id="insumo-titulo-{{@index}}">{{this.nombre}}</div>
         </div>
@@ -138,33 +133,7 @@
         <button class="uk-modal-close-default" uk-close></button>
       </div> <!-- /modal -->
 	</div> <!-- /modal-dialog -->
-
-
-
-<script src='js/ajax.js'>
-</script>
-<script>
-// Populate modal asyncally with insumo data
-	var fireModal = function (id) {
-		var modal = document.getElementById('insumos-modal');
-
-		UIkit.util.on(modal, 'beforeshow', function (e) {
-			Ajax.get('insumos/'+id, (result) => {
-				console.log(result);
-			});
-			
-			//e.preventDefault();
-			//e.target.blur();
-		});
-
-
-
-		UIkit.modal(modal).show();
-
-
-	}; 
-
-</script>
-
-
+  {{/each}}
+  </tbody>
+</table>
 

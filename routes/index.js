@@ -6,7 +6,7 @@ var router = express.Router();
 var Insumos = require('../models/insumos');
 var Tags = require('../models/tags');
 
-
+var Ajax = require('../public/js/ajax');
 
 //router.get('/insumos/nuevo', Insumos.create);
 //router.post('/insumos/nuevo', Insumos.doCreate);
@@ -34,6 +34,14 @@ router.get('/insumos',
 	}
 );
 */
+router.get('/insumos/:id', (req, res) => {
+    Insumos.findOne({_id : req.params.id }, 
+		(err, insumos) => {
+			console.log(insumos);
+			res.send(insumos);
+	    });
+});
+
 router.get('/insumos', (req, res) => {
     Insumos.find(function (err, insumos) {
         Tags.find(function (err, tags) {
