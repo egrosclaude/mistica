@@ -24,7 +24,7 @@
 	<div id="insumos-modal" uk-modal>
       <div class="uk-modal-dialog" id="insumos-modal-dialog">
         <div class="uk-modal-header">
-            <div class="uk-modal-title" id="insumo-titulo-{{@index}}">{{this.nombre}}</div>
+            <div class="uk-modal-title" id="insumo-titulo"></div>
         </div>
         <div class="uk-modal-body">
 		<!-- body -->
@@ -37,7 +37,7 @@
 
 		<ul class="uk-switcher uk-margin">
 		    <li><!------------------ DATOS --------------------->
-				<form class="uk-form-horizontal" action="/insumos/edit" method="POST">
+				<form class="uk-form-horizontal" id="insumo-datos-form" action="/insumos/edit" method="POST">
 				<input type="hidden" name="id" value="{{this._id}}">
 			    <div class="uk-margin">
 			        <label class="uk-form-label" for="campoNombre-{{@index}}">Nombre</label>
@@ -150,7 +150,16 @@
 
 		UIkit.util.on(modal, 'beforeshow', function (e) {
 			Ajax.get('insumos/'+id, (result) => {
-				console.log(result);
+				console.log(result.nombre);
+				document.getElementById('insumo-titulo').innerHTML = result.nombre;
+
+				var form = document.getElementById('insumo-datos-form');
+					console.log(form);
+
+				for (var field in form) {
+					//console.log(field);
+//					field.innerHTML = result[field];
+				}
 			});
 			
 			//e.preventDefault();
