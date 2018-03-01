@@ -150,15 +150,17 @@
 
 		UIkit.util.on(modal, 'beforeshow', function (e) {
 			Ajax.get('insumos/'+id, (result) => {
-//				console.log(JSON.stringify(result));
+
+				JSON.stringify(result);
+				console.log(result.nombre);
 
 				document.getElementById('insumo-titulo').innerHTML = result.nombre;
 
 				var form = document.getElementById('insumo-datos-form');
-					console.log(JSON.stringify(form));
+			 	console.log(JSON.parse(form));
 
-				for (var field in form) {
-					//console.log(field);
+				for (let field of form.childNodes) {
+//					console.log(field.name);
 //					field.innerHTML = result[field];
 				}
 			});
