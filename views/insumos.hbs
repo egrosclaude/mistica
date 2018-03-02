@@ -148,14 +148,14 @@ var fireModal = function (id) {
 			var titulo = document.getElementById('insumo-titulo');
 			titulo.innerHTML = json.nombre;
 
-			var lista = ["nombre"];
+			var lista = ["nombre", "costo"];
 			for (var field in lista) {
 				console.log('field: ',field);
 				console.log('lista[field]: ',lista[field]);
 
 				var d = document.getElementById('campo-'+lista[field]);
 				console.log(d);
-				d.innerHTML = json[lista[field]];
+				d.value = json[lista[field]];
 			}
 		});
 			

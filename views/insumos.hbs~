@@ -155,7 +155,7 @@ var fireModal = function (id) {
 
 				var d = document.getElementById('campo-'+lista[field]);
 				console.log(d);
-				d.innerHTML = json[lista[field]];
+				d.value = json[lista[field]];
 			}
 		});
 			
