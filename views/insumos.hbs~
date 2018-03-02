@@ -1,4 +1,4 @@
-
+	
 <!---------------- INSUMOS ------------------>
 
 <table class="uk-table uk-table-striped uk-table-small">
@@ -10,16 +10,21 @@
   </thead>
   <tbody>
   {{#each insumos}}
-	<tr uk-toggle="target: #insumos-modal-{{@index}}">
+	<!-- <tr uk-toggle="target: #insumos-modal" id="tr-{{this._id}}" onclick="fireModal('tr-{{this._id}}');"> -->
+		<tr id="tr-{{this._id}}" onclick="fireModal('{{this._id}}');"> 
 		<td>{{this.nombre}}</td>
 		<td>{{this.costo}}</td>
 	</tr>
+  {{/each}}
+  </tbody>
+</table>
+
 
 	<!-- modal -->
-	<div id="insumos-modal-{{@index}}" uk-modal>
-      <div class="uk-modal-dialog">
+	<div id="insumos-modal" uk-modal>
+      <div class="uk-modal-dialog" id="insumos-modal-dialog">
         <div class="uk-modal-header">
-            <div class="uk-modal-title" id="insumo-titulo-{{@index}}">{{this.nombre}}</div>
+            <div class="uk-modal-title" id="insumo-titulo"></div>
         </div>
         <div class="uk-modal-body">
 		<!-- body -->
@@ -32,43 +37,36 @@
 
 		<ul class="uk-switcher uk-margin">
 		    <li><!------------------ DATOS --------------------->
-				<form class="uk-form-horizontal" action="/insumos/edit" method="POST">
+				<form class="uk-form-horizontal" id="insumo-datos-form" action="/insumos/edit" method="POST">
 				<input type="hidden" name="id" value="{{this._id}}">
 			    <div class="uk-margin">
-			        <label class="uk-form-label" for="campoNombre-{{@index}}">Nombre</label>
+			        <label class="uk-form-label" for="campo-nombre">Nombre</label>
 					<div class="uk-form-controls-text">
         		    	<input class="uk-input uk-form-small" type="text"
-							id="campoNombre-{{@index}}" 
-							value="{{this.nombre}}"
-							name="nombre">
+							id="campo-nombre" 
+							name="nombre"
+							value="{{this.nombre}}">
         			</div>
 			    </div>
 			    <div class="uk-margin">
-			        <label class="uk-form-label" for="campoUnidades-{{@index}}">Unidades</label>
+			        <label class="uk-form-label" for="campo-unidades">Unidades</label>
 			        <div class="uk-form-controls uk-form-controls-select">
 						<select class="uk-select uk-form-small uk-form-width-small"
-							id="campoUnidades-{{@index}}" name="unidades">
+							id="campo-unidades" name="unidades">
 					        <option>g</option>
 					        <option>ml</option>
 					        <option>L</option>
 					        <option>Kg</option>
 						</select>
-						<!--
-						<input class="uk-input uk-form-small uk-form-width-small" 
-							type="select"
-							id="campoUnidades-{{@index}}" 
-							value="{{this.unidades}}"
-							name="unidades">
-						-->
         			</div>
 			    </div>
 			    <div class="uk-margin">
 			        <label class="uk-form-label">Precio de costo</label>
 			        <div class="uk-form-controls uk-form-controls-text">
 						<input class="uk-input uk-form-small uk-form-width-small" type="text" 
-							id="campoCosto-{{@index}}" 
-							value="{{this.costo}}"
-							name="costo">
+							id="campo-costo" 
+							name="costo"
+							value="{{this.costo}}">
         			</div>
 			    </div>
 				<hr>
@@ -82,16 +80,14 @@
 					action="/insumos/tags" method="POST">
 				<input type="hidden" name="id" value="{{this._id}}">
 
-				<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+				<div class="uk-margin uk-child-width-auto uk-grid">
 					{{#each ../tags}}
-		            <label>{{this.nombre}}</label>
-					<input class="uk-checkbox" type="checkbox" 
-						name="tag-{{this.id}}" checked>
+					<label>{{this.nombre}}</label><input class="uk-checkbox" type="checkbox" name="tag-{{this.id}}" value=" ">
 					{{/each}} 
         		</div>
 
 				<hr> <!-------------------------------------->
-
+				<!---- Nuevo tag ---------------------------->
 			    <div class="uk-margin">
 			        <label class="uk-form-label">Nuevo tag</label>
 			        <div class="uk-form-controls uk-form-controls-text">
@@ -104,11 +100,10 @@
 			    </div>
 				<div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
 					{{#each this.propiedades}}
-		            <label>
-						<input class="uk-checkbox" 
+					<input class="uk-checkbox" 
 						type="checkbox" 
-						name="{{this.id}}" checked>{{this.id}}
-					</label>
+						name="{{this.id}}" checked>
+		            <label>{{this.id}}</label>
 					{{/each}} <!--propiedades -->
         		</div>
 				<hr> <!-------------------------------------->
@@ -136,8 +131,43 @@
         <button class="uk-modal-close-default" uk-close></button>
       </div> <!-- /modal -->
 	</div> <!-- /modal-dialog -->
-  {{/each}}
-  </tbody>
-</table>
+
+
+
+<script src='js/ajax.js'>
+</script>
+<script>
+// Populate modal asyncally with insumo data
+var fireModal = function (id) {
+	var modal = document.getElementById('insumos-modal');
+
+	UIkit.util.on(modal, 'beforeshow', function (e) {
+		Ajax.get('insumos/'+id, (result) => {
+			var json = JSON.parse(result);
+
+			var titulo = document.getElementById('insumo-titulo');
+			titulo.innerHTML = json.nombre;
+
+			var lista = ["nombre"];
+			for (var field in lista) {
+				console.log('field: ',field);
+				console.log('lista[field]: ',lista[field]);
+
+				var d = document.getElementById('campo-'+lista[field]);
+				console.log(d);
+				d.innerHTML = json[lista[field]];
+			}
+		});
+			
+		//e.preventDefault();
+		//e.target.blur();
+
+	});
+
+	UIkit.modal(modal).show();
+}; 
+
+</script>
+
 
 

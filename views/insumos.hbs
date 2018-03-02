@@ -40,40 +40,33 @@
 				<form class="uk-form-horizontal" id="insumo-datos-form" action="/insumos/edit" method="POST">
 				<input type="hidden" name="id" value="{{this._id}}">
 			    <div class="uk-margin">
-			        <label class="uk-form-label" for="campoNombre-{{@index}}">Nombre</label>
+			        <label class="uk-form-label" for="campo-nombre">Nombre</label>
 					<div class="uk-form-controls-text">
         		    	<input class="uk-input uk-form-small" type="text"
-							id="campoNombre-{{@index}}" 
-							value="{{this.nombre}}"
-							name="nombre">
+							id="campo-nombre" 
+							name="nombre"
+							value="{{this.nombre}}">
         			</div>
 			    </div>
 			    <div class="uk-margin">
-			        <label class="uk-form-label" for="campoUnidades-{{@index}}">Unidades</label>
+			        <label class="uk-form-label" for="campo-unidades">Unidades</label>
 			        <div class="uk-form-controls uk-form-controls-select">
 						<select class="uk-select uk-form-small uk-form-width-small"
-							id="campoUnidades-{{@index}}" name="unidades">
+							id="campo-unidades" name="unidades">
 					        <option>g</option>
 					        <option>ml</option>
 					        <option>L</option>
 					        <option>Kg</option>
 						</select>
-						<!--
-						<input class="uk-input uk-form-small uk-form-width-small" 
-							type="select"
-							id="campoUnidades-{{@index}}" 
-							value="{{this.unidades}}"
-							name="unidades">
-						-->
         			</div>
 			    </div>
 			    <div class="uk-margin">
 			        <label class="uk-form-label">Precio de costo</label>
 			        <div class="uk-form-controls uk-form-controls-text">
 						<input class="uk-input uk-form-small uk-form-width-small" type="text" 
-							id="campoCosto-{{@index}}" 
-							value="{{this.costo}}"
-							name="costo">
+							id="campo-costo" 
+							name="costo"
+							value="{{this.costo}}">
         			</div>
 			    </div>
 				<hr>
@@ -145,36 +138,34 @@
 </script>
 <script>
 // Populate modal asyncally with insumo data
-	var fireModal = function (id) {
-		var modal = document.getElementById('insumos-modal');
+var fireModal = function (id) {
+	var modal = document.getElementById('insumos-modal');
 
-		UIkit.util.on(modal, 'beforeshow', function (e) {
-			Ajax.get('insumos/'+id, (result) => {
+	UIkit.util.on(modal, 'beforeshow', function (e) {
+		Ajax.get('insumos/'+id, (result) => {
+			var json = JSON.parse(result);
 
-				JSON.stringify(result);
-				console.log(result.nombre);
+			var titulo = document.getElementById('insumo-titulo');
+			titulo.innerHTML = json.nombre;
 
-				document.getElementById('insumo-titulo').innerHTML = result.nombre;
+			var lista = ["nombre"];
+			for (var field in lista) {
+				console.log('field: ',field);
+				console.log('lista[field]: ',lista[field]);
 
-				var form = document.getElementById('insumo-datos-form');
-			 	console.log(JSON.parse(form));
-
-				for (let field of form.childNodes) {
-//					console.log(field.name);
-//					field.innerHTML = result[field];
-				}
-			});
-			
-			//e.preventDefault();
-			//e.target.blur();
+				var d = document.getElementById('campo-'+lista[field]);
+				console.log(d);
+				d.innerHTML = json[lista[field]];
+			}
 		});
+			
+		//e.preventDefault();
+		//e.target.blur();
 
+	});
 
-
-		UIkit.modal(modal).show();
-
-
-	}; 
+	UIkit.modal(modal).show();
+}; 
 
 </script>
 
