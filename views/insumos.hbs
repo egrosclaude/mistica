@@ -118,7 +118,7 @@
 
 		    <li><!------------------ BORRAR --------------------->
 			<div class="uk-flex uk-flex-center"> 
-					<div class="uk-card uk-card-default uk-card-body uk-card-secondary uk-align-center">¿Borrar el insumo <strong>{{this.nombre}}</strong>?</div>
+					<div class="uk-card uk-card-default uk-card-body uk-card-secondary uk-align-center">¿Borrar el insumo <strong><span id="insumo-nombre-borrar"></span></strong>?</div>
 				<p></p>
 			</div>
 			<hr>
@@ -134,36 +134,31 @@
 
 
 
-<script src='js/ajax.js'>
-</script>
+<script src='js/ajax.js'></script>
 <script>
+
+var setInnerHTMLById = (id,value) => {
+	document.getElementById(id).innerHTML = value;
+};
+ 
+var setValueById = (id,value) => {
+	document.getElementById(id).value = value;
+};
 // Populate modal asyncally with insumo data
 var fireModal = function (id) {
 	var modal = document.getElementById('insumos-modal');
-
 	UIkit.util.on(modal, 'beforeshow', function (e) {
 		Ajax.get('insumos/'+id, (result) => {
 			var json = JSON.parse(result);
+			setInnerHTMLById('insumo-titulo', json.nombre);
+			setInnerHTMLById('insumo-nombre-borrar', json.nombre);
 
-			var titulo = document.getElementById('insumo-titulo');
-			titulo.innerHTML = json.nombre;
-
-			var lista = ["nombre", "costo"];
+			var lista = ["nombre", "costo", "unidades"];
 			for (var field in lista) {
-				console.log('field: ',field);
-				console.log('lista[field]: ',lista[field]);
-
-				var d = document.getElementById('campo-'+lista[field]);
-				console.log(d);
-				d.value = json[lista[field]];
+				setValueById('campo-'+lista[field], json[lista[field]]);
 			}
 		});
-			
-		//e.preventDefault();
-		//e.target.blur();
-
 	});
-
 	UIkit.modal(modal).show();
 }; 
 
