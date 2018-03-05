@@ -2,10 +2,12 @@ var Ajax = {};
 
 Ajax.get = (url, callback) => {
 	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = () => {
+	xhr.onload = () => {
 			if(xhr.readyState == 4 && xhr.status == 200) {
 				callback(xhr.responseText);
-			};
+			} else {
+				alert('Request failed.  Returned status of ' + xhr.status);
+			}
 	};
 	xhr.open('GET', url, true);
 	xhr.send();

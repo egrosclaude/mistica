@@ -20,7 +20,7 @@ var exphbs = require("express-handlebars");
 hbs = exphbs.create({
   defaultLayout: 'main', 
   layoutsDir: path.join(__dirname,'views/layouts'),
-  partialsDir: path.join(__dirname, 'views/partials'),
+  partialsDir: path.join(__dirname, 'views'),
   extname: '.hbs'
 });
 app.engine('hbs', hbs.engine);
@@ -32,7 +32,6 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser()); 
-
 
 
 var routes = require('./routes/index');

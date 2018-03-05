@@ -39,7 +39,7 @@ Tags.create = (req, res, next) => {
 
 
 Tags.delete = (req,res) => {
-	console.log(req.params);
+	//console.log(req.params);
 	Tags.findByIdAndRemove(req.params.id, (err) => {
 		if(!err) {
 		//			res.redirect('/insumos');

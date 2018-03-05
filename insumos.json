@@ -1,0 +1,13 @@
+{ "__v" : 0, "_id" : { "$oid" : "5a713beca52527043f8fef36" }, "costo" : 22.11, "modificadoEn" : { "$date" : 1517370348728 }, "nombre" : "Aceite esencial de coco", "propiedades" : [], "unidades" : "ml" }
+{ "__v" : 0, "_id" : { "$oid" : "5a713c34a52527043f8fef37" }, "costo" : 11.59, "modificadoEn" : { "$date" : 1517370420630 }, "nombre" : "Soda Cáustica", "propiedades" : [], "unidades" : "g" }
+{ "__v" : 0, "_id" : { "$oid" : "5a713caca52527043f8fef38" }, "costo" : 9.199999999999999, "modificadoEn" : { "$date" : 1517370540433 }, "nombre" : "Esencia de limón", "propiedades" : [], "unidades" : "ml" }
+{ "__v" : 0, "_id" : { "$oid" : "5a713eba446d7b0539673ca2" }, "costo" : 23.45, "modificadoEn" : { "$date" : 1517371066082 }, "nombre" : "Aceite esencial de romero", "propiedades" : [], "unidades" : "ml" }
+{ "__v" : 0, "_id" : { "$oid" : "5a713f4fb5e1ef05a0fe8203" }, "costo" : 44.25, "modificadoEn" : { "$date" : 1517371215026 }, "nombre" : "Agua destilada", "propiedades" : [], "unidades" : "ml" }
+{ "__v" : 0, "_id" : { "$oid" : "5a713f7975659a05c9be2ca7" }, "costo" : 15.22, "modificadoEn" : { "$date" : 1517371257948 }, "nombre" : "Miel", "propiedades" : [], "unidades" : "g" }
+{ "__v" : 0, "_id" : { "$oid" : "5a713fbc11b74f05fb8470c2" }, "costo" : 22, "modificadoEn" : { "$date" : 1517371324244 }, "nombre" : "Glicerina", "propiedades" : [], "unidades" : "g" }
+{ "__v" : 0, "_id" : { "$oid" : "5a71405add13d606395f1b10" }, "costo" : 14.52, "modificadoEn" : { "$date" : 1517371482104 }, "nombre" : "Hora de trabajo", "propiedades" : [], "unidades" : "h" }
+{ "__v" : 0, "_id" : { "$oid" : "5a7143a824cf040785ff279c" }, "costo" : 22.12, "modificadoEn" : { "$date" : 1517372328044 }, "nombre" : "Virutas de coco", "propiedades" : [], "unidades" : "g" }
+{ "nombre" : "Crema base", "costo" : 150, "unidades" : "Kg", "_id" : { "$oid" : "5a88755c940b024ab732af0c" }, "propiedades" : [], "modificadoEn" : { "$date" : 1518892380549 }, "__v" : 0 }
+{ "__v" : 0, "_id" : { "$oid" : "5a90a3cb8853cf550deb8810" }, "costo" : 12, "modificadoEn" : { "$date" : 1519428555320 }, "nombre" : "Pétalos de caléndula", "propiedades" : [], "unidades" : "g" }
+{ "nombre" : "Aceite esencial de canela", "unidades" : "ml", "costo" : 400, "_id" : { "$oid" : "5a90b2788853cf550deb8814" }, "propiedades" : [], "modificadoEn" : { "$date" : 1519432312750 }, "__v" : 0 }
+{ "__v" : 0, "_id" : { "$oid" : "5a90d29ff866d4384be767a6" }, "costo" : 29.99, "modificadoEn" : { "$date" : 1519440543246 }, "nombre" : "Pétalos de rosa", "propiedades" : [], "unidades" : "g" }

@@ -1,30 +1,8 @@
-	
-<!---------------- INSUMOS ------------------>
-
-<table class="uk-table uk-table-striped uk-table-small">
-  <thead>
-	<tr>
-		<th>Insumo</th>
-		<th>Costo</th>
-	</tr>
-  </thead>
-  <tbody>
-  {{#each insumos}}
-	<!-- <tr uk-toggle="target: #insumos-modal" id="tr-{{this._id}}" onclick="fireModal('tr-{{this._id}}');"> -->
-		<tr id="tr-{{this._id}}" onclick="fireModal('{{this._id}}');"> 
-		<td>{{this.nombre}}</td>
-		<td>{{this.costo}}</td>
-	</tr>
-  {{/each}}
-  </tbody>
-</table>
-
-
 	<!-- modal -->
-	<div id="insumos-modal" uk-modal>
-      <div class="uk-modal-dialog" id="insumos-modal-dialog">
+	<div id="arts-modal" uk-modal>
+      <div class="uk-modal-dialog" id="arts-modal-dialog">
         <div class="uk-modal-header">
-            <div class="uk-modal-title" id="insumo-titulo"></div>
+            <div class="uk-modal-title" id="art-titulo"></div>
         </div>
         <div class="uk-modal-body">
 		<!-- body -->
@@ -37,22 +15,29 @@
 
 		<ul class="uk-switcher uk-margin">
 		    <li><!------------------ DATOS --------------------->
-				<form class="uk-form-horizontal" id="insumo-datos-form" action="/insumos/edit" method="POST">
+				<form  id="art-datos-form" action="/arts/edit/{{this._id}}" method="POST">
 				<input type="hidden" name="id" value="{{this._id}}">
 			    <div class="uk-margin">
-			        <label class="uk-form-label" for="campo-nombre">Nombre</label>
+			        <!-- <label class="uk-form-label" for="campo-nombre">Denominación</label> -->
 					<div class="uk-form-controls-text">
         		    	<input class="uk-input uk-form-small" type="text"
 							id="campo-nombre" 
 							name="nombre"
+							placeholder="Denominación"
 							value="{{this.nombre}}">
         			</div>
-			    </div>
-			    <div class="uk-margin">
-			        <label class="uk-form-label" for="campo-unidades">Unidades</label>
-			        <div class="uk-form-controls uk-form-controls-select">
+			        <!-- <label class="uk-form-label" for="campo-tamano">Tamaño</label> -->
+			        <div class="uk-form-controls uk-form-controls-text">
+						<input class="uk-input uk-form-small uk-form-width-small" type="text" 
+							id="campo-tamano" 
+							name="tamano"
+							placeholder="Tamaño"
+							value="{{this.tamano}}">
+			        <!-- <label class="uk-form-label" for="campo-unidades">Unidades</label> -->
 						<select class="uk-select uk-form-small uk-form-width-small"
-							id="campo-unidades" name="unidades">
+							id="campo-unidades" 
+							placeholder="Unidades"
+							name="unidades">
 					        <option>g</option>
 					        <option>ml</option>
 					        <option>L</option>
@@ -66,18 +51,21 @@
 						<input class="uk-input uk-form-small uk-form-width-small" type="text" 
 							id="campo-costo" 
 							name="costo"
+							placeholder="Precio de costo"
 							value="{{this.costo}}">
         			</div>
 			    </div>
 				<hr>
-				<input class="uk-button uk-button-primary uk-button-small uk-align-right" type="submit" value="Confirmar">
-				<a class="uk-button uk-button-default uk-button-primary uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
+				<input class="uk-button uk-button-primary uk-button-small uk-align-right"
+						type="submit" value="Confirmar">
+				<a class="uk-button uk-button-default uk-button-primary 
+						uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
 				</form>
 			</li>
 
 		    <li><!------------------ TAGS --------------------->
 				<form class="uk-form-horizontal uk-margin-large" 
-					action="/insumos/tags" method="POST">
+					action="/arts/tags" method="POST">
 				<input type="hidden" name="id" value="{{this._id}}">
 
 				<div class="uk-margin uk-child-width-auto uk-grid">
@@ -118,11 +106,11 @@
 
 		    <li><!------------------ BORRAR --------------------->
 			<div class="uk-flex uk-flex-center"> 
-					<div class="uk-card uk-card-default uk-card-body uk-card-secondary uk-align-center">¿Borrar el insumo <strong><span id="insumo-nombre-borrar"></span></strong>?</div>
+					<div class="uk-card uk-card-default uk-card-body uk-card-secondary uk-align-center">¿Borrar el art <strong><span id="art-nombre-borrar"></span></strong>?</div>
 				<p></p>
 			</div>
 			<hr>
-			<a class="uk-button uk-button-danger uk-button-small uk-align-right " href="/insumos/delete/{{this._id}}">Confirmar</a>
+			<a class="uk-button uk-button-danger uk-button-small uk-align-right " href="/arts/delete/{{this._id}}">Confirmar</a>
 			<a class="uk-button uk-button-default uk-button-primary uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
 
 			</li>
@@ -131,38 +119,4 @@
         <button class="uk-modal-close-default" uk-close></button>
       </div> <!-- /modal -->
 	</div> <!-- /modal-dialog -->
-
-
-
-<script src='js/ajax.js'></script>
-<script>
-
-var setInnerHTMLById = (id,value) => {
-	document.getElementById(id).innerHTML = value;
-};
- 
-var setValueById = (id,value) => {
-	document.getElementById(id).value = value;
-};
-// Populate modal asyncally with insumo data
-var fireModal = function (id) {
-	var modal = document.getElementById('insumos-modal');
-	UIkit.util.on(modal, 'beforeshow', function (e) {
-		Ajax.get('insumos/'+id, (result) => {
-			var json = JSON.parse(result);
-			setInnerHTMLById('insumo-titulo', json.nombre);
-			setInnerHTMLById('insumo-nombre-borrar', json.nombre);
-
-			var lista = ["nombre", "costo", "unidades"];
-			for (var field in lista) {
-				setValueById('campo-'+lista[field], json[lista[field]]);
-			}
-		});
-	});
-	UIkit.modal(modal).show();
-}; 
-
-</script>
-
-
 

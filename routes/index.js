@@ -1,60 +1,26 @@
 var express = require('express');
-var async = require('async');
+//var async = require('async');
 var router = express.Router();
 
 
-var Insumos = require('../models/insumos');
+var Arts = require('../models/arts');
 var Tags = require('../models/tags');
-
 var Ajax = require('../public/js/ajax');
 
-//router.get('/insumos/nuevo', Insumos.create);
-//router.post('/insumos/nuevo', Insumos.doCreate);
-router.post('/insumos/edit', Insumos.edit);
-router.get('/insumos/delete/:id', Insumos.delete);
-router.post('/insumos/tags', Tags.create, Insumos.edit);
-router.get('/insumos?search', Insumos.search);
-/* https://stackoverflow.com/questions/26402781/nodejs-mongoose-render-two-models-from-collections
-router.get('/insumos', 
-	(req,res) => {
-		var listaInsumos = Insumos.find(Insumos.makekey(req,res));
-		var listaTags = Tags.find({});
-		var listaVars = { 
-				insumos: listaInsumos.exec.bind(listaInsumos),
-				tags: listaTags.exec.bind(listaTags),
-		};
-	 	
-		async.parallel(listaVars, (err,listado) => {
-	        if(err) {
-		        res.render('insumos.hbs',listado);
-        	} else {
-				res.status(500).send(err);
-    		}
-		});
-	}
-);
-*/
-router.get('/insumos/:id', (req, res) => {
-    Insumos.findOne({_id : req.params.id }, 
-		(err, insumos) => {
-			console.log(insumos);
-			res.send(insumos);
+//router.get('/arts/nuevo', Arts.create);
+//router.post('/arts/nuevo', Arts.doCreate);
+router.post('/arts/edit/:id', Arts.edit);
+router.get('/arts/delete/:id', Arts.delete);
+router.post('/arts/tags', Tags.create, Arts.edit);
+router.get('/arts/:id', (req, res) => {
+    Arts.findOne({_id : req.params.id }, 
+		(err, arts) => {
+			console.log("router get arts/:id",arts);
+			res.send(arts);
 	    });
 });
 
-router.get('/insumos', (req, res) => {
-    Insumos.find(function (err, insumos) {
-        Tags.find(function (err, tags) {
-			console.log(tags);
-            res.render('insumos', {
-				title: 'Insumos',
-                insumos : insumos,
-                tags : tags
-            });
-        });
-    });
-});
-
+router.get('/arts', Arts.list);
 router.get('/tags/delete/:id', Tags.delete);
 router.post('/tags', Tags.create);
 router.get('/tags', Tags.list);
@@ -67,15 +33,10 @@ router.get('/formulas', function(req, res) {
 });
 
 
-router.get('/productos', function(req, res) {
-  console.log('estoy en productos');
-  res.render('productos.hbs', { title: 'Productos', message: 'Esta es la lista de productos' });
-  
-});
-
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Mística', mensaje: 'A ver' });
+  res.render('index', { title: 'Mística', mensaje: 'Mística' });
 });
  
 module.exports = router; 
+
