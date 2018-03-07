@@ -35,12 +35,8 @@ var setValueById = (id,value) => {
 
 // Populate modal asyncally with art data
 var fireModal = function (id) {
-
 	console.log('FIREMODAL: ',id);
-
-
 	var modal = document.getElementById('arts-modal');
-
 	document.getElementById('art-datos-form').action = "/arts/edit/" + id;
 
 	UIkit.util.on(modal, 'beforeshow', function (e) {
@@ -56,6 +52,21 @@ var fireModal = function (id) {
 		});
 	});
 	UIkit.modal(modal).show();
+
+/*	var resultToForm = (result) => {
+		var art = JSON.parse(result);
+		setInnerHTMLById('art-titulo', art.nombre);
+		setInnerHTMLById('art-nombre-borrar', art.nombre);
+		var lista = ["nombre", "costo", "tamano", "unidades"];
+		for (var field in lista) {
+			setValueById('campo-'+lista[field], art[lista[field]]);
+		}
+	};
+	UIkit.util.on(modal, 'beforeshow', function (e) {
+		Ajax.fetchget('arts/'+id, resultToForm);
+	});
+	UIkit.modal(modal).show();
+*/
 }; 
 
 </script>

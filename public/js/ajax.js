@@ -1,19 +1,67 @@
 var Ajax = {};
 
+
+
+/*
+fetch('/my/name').then( 
+	function (response) {
+			if (response.ok) {
+				return response.text();
+			} else {
+				throw new Error();
+			}
+	}).then(
+		function success(name) {
+			console.log('my name is ' + name);
+		},
+		function failure() {
+			console.error('Name request failed!');
+		}
+	);
+*/
+
+
+/*
+Ajax.fetchget = (url, callback) => {
+	fetch(url).then(	
+		(response) => {
+			if(response.ok) {
+				return response.text();
+			} else {
+				throw new Error();
+			}
+	}).then (
+		(result) => {
+			console.log("RESPONSE: ",result);
+			callback(result);
+		},
+		() => {
+			console.error('Fallo en GET');
+		}
+	);
+};
+
+*/
+
+
+
 Ajax.get = (url, callback) => {
 	var xhr = new XMLHttpRequest();
 	xhr.onload = () => {
-			if(xhr.readyState == 4 && xhr.status == 200) {
+			if(xhr.readyState == 4 && xhr.status < 400) {
 				callback(xhr.responseText);
 			} else {
 				alert('Request failed.  Returned status of ' + xhr.status);
 			}
 	};
+	xhr.onerror = () => {
+		console.error('Request failed!');
+	};
 	xhr.open('GET', url, true);
 	xhr.send();
 };
-/*
 
+/*
 
 Ajax.post = () => {
 	var newName = 'John Smith',

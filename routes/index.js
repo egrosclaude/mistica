@@ -7,6 +7,11 @@ var Arts = require('../models/arts');
 var Tags = require('../models/tags');
 var Ajax = require('../public/js/ajax');
 
+router.use((req, res, next) => {
+    res.set("Connection", "close");
+    next();
+});
+
 //router.get('/arts/nuevo', Arts.create);
 //router.post('/arts/nuevo', Arts.doCreate);
 router.post('/arts/edit/:id', Arts.edit);
@@ -14,9 +19,9 @@ router.get('/arts/delete/:id', Arts.delete);
 router.post('/arts/tags', Tags.create, Arts.edit);
 router.get('/arts/:id', (req, res) => {
     Arts.findOne({_id : req.params.id }, 
-		(err, arts) => {
-			console.log("router get arts/:id",arts);
-			res.send(arts);
+		(err, art) => {
+			console.log("router get arts/:id",art);
+			res.send(art);
 	    });
 });
 
