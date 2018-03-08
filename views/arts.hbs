@@ -21,54 +21,39 @@
 
 {{> arts-form }}
 
+<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 
 <script src='js/ajax.js'></script>
 <script>
+
+var MODAL = document.getElementById('arts-modal');
+var FORM = document.getElementById('art-datos-form');
 
 var setInnerHTMLById = (id,value) => {
 	document.getElementById(id).innerHTML = value;
 };
  
-var setValueById = (id,value) => {
+var setValueById = (id,value) => {	
 	document.getElementById(id).value = value;
 };
 
-// Populate modal asyncally with art data
+var lista = ["nombre", "costo", "tamano", "unidades"];
+
 var fireModal = function (id) {
-	console.log('FIREMODAL: ',id);
-	var modal = document.getElementById('arts-modal');
-	document.getElementById('art-datos-form').action = "/arts/edit/" + id;
-
-	UIkit.util.on(modal, 'beforeshow', function (e) {
-		Ajax.get('arts/'+id, (result) => {
-			var json = JSON.parse(result);
-			setInnerHTMLById('art-titulo', json.nombre);
-			setInnerHTMLById('art-nombre-borrar', json.nombre);
-
-			var lista = ["nombre", "costo", "tamano", "unidades"];
-			for (var field in lista) {
-				setValueById('campo-'+lista[field], json[lista[field]]);
-			}
-		});
-	});
-	UIkit.modal(modal).show();
-
-/*	var resultToForm = (result) => {
+	//console.log('FIREMODAL: ',id);
+	FORM.action = "/arts/edit/" + id;
+	var resultToForm = (result) => {
+		//console.log(result);
 		var art = JSON.parse(result);
 		setInnerHTMLById('art-titulo', art.nombre);
 		setInnerHTMLById('art-nombre-borrar', art.nombre);
-		var lista = ["nombre", "costo", "tamano", "unidades"];
 		for (var field in lista) {
 			setValueById('campo-'+lista[field], art[lista[field]]);
 		}
 	};
-	UIkit.util.on(modal, 'beforeshow', function (e) {
-		Ajax.fetchget('arts/'+id, resultToForm);
-	});
-	UIkit.modal(modal).show();
-*/
+	Ajax.get('arts/'+id, resultToForm);
+	UIkit.modal(MODAL).show();
 }; 
-
 </script>
 
 

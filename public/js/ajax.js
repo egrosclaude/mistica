@@ -1,6 +1,21 @@
 var Ajax = {};
 
 
+Ajax.get = (url, callback) => {
+	xhr =  new XMLHttpRequest();
+	xhr.open('GET', url, false);
+	xhr.onerror = () => {
+		console.error('Request failed!');
+	};
+	xhr.onload = () => {
+		if(xhr.readyState == 4 && xhr.status < 400) {
+			callback(xhr.responseText);
+		} else {
+			alert('Request failed.  Returned status of ' + xhr.status);
+		}
+	};
+	xhr.send();
+};
 
 /*
 fetch('/my/name').then( 
@@ -43,23 +58,6 @@ Ajax.fetchget = (url, callback) => {
 
 */
 
-
-
-Ajax.get = (url, callback) => {
-	var xhr = new XMLHttpRequest();
-	xhr.onload = () => {
-			if(xhr.readyState == 4 && xhr.status < 400) {
-				callback(xhr.responseText);
-			} else {
-				alert('Request failed.  Returned status of ' + xhr.status);
-			}
-	};
-	xhr.onerror = () => {
-		console.error('Request failed!');
-	};
-	xhr.open('GET', url, true);
-	xhr.send();
-};
 
 /*
 
