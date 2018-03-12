@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var artsSchema = Schema({
-	nombre: { type:String, required:true, unique:true },
+	nombre: { type:String, required:true },
 	tamano: Number,
 	unidades: String,
 	costo: Number,
@@ -73,13 +73,30 @@ exports.doCreate = (req, res) => {
 };
 */
 
-Arts.delete = (req,res) => {
+Arts.delete = (req,res,next) => {
 	console.log("delete: ", req.params);
 	Arts.findByIdAndRemove(req.params.id, (err) => {
-		if(!err) {
-			res.redirect('/arts');
+		if(err) {
+			console.log("error en borrado");
 		}
 	});
+	res.redirect('/arts');
+};
+
+Arts.nuevo = (req,res,next) => {
+	console.log("nuevo: ", req.params);
+	new Arts({
+		nombre: req.body.nombre,
+		tamano: req.body.tamano,
+		unidades: req.body.unidades,
+		costo: req.body.costo,
+		creadoEn : Date.now(),
+		modificadoEn : Date.now(),
+	}).save( (err, art) => {
+		if(!err) { console.log("Art creado", art); }
+		res.redirect('/arts');
+	});
+	next();
 };
 
 Arts.edit = (req,res) => {

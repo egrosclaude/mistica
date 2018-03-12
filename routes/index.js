@@ -15,7 +15,9 @@ router.use((req, res, next) => {
 //router.get('/arts/nuevo', Arts.create);
 //router.post('/arts/nuevo', Arts.doCreate);
 router.post('/arts/edit/:id', Arts.edit);
-router.get('/arts/delete/:id', Arts.delete);
+router.get('/arts/borrar/:id', Arts.delete);
+router.get('/arts/copiar/:id', Arts.nuevo);
+router.post('/arts/nuevo', Arts.nuevo);
 router.post('/arts/tags', Tags.create, Arts.edit);
 router.get('/arts/:id', (req, res) => {
     Arts.findOne({_id : req.params.id }, 

@@ -1,6 +1,9 @@
 	
 <!---------------- ARTICULOS ------------------>
-
+<div class="uk-margin-left">
+<a class="uk-button uk-button-primary uk-button-small uk-align-left" 
+	onclick="fireModal(0);">Nuevo</a>
+</div>
 <table class="uk-table uk-table-striped uk-table-small">
   <thead>
 	<tr>
@@ -40,18 +43,31 @@ var setValueById = (id,value) => {
 var lista = ["nombre", "costo", "tamano", "unidades"];
 
 var fireModal = function (id) {
-	//console.log('FIREMODAL: ',id);
-	FORM.action = "/arts/edit/" + id;
+	
 	var resultToForm = (result) => {
-		//console.log(result);
 		var art = JSON.parse(result);
 		setInnerHTMLById('art-titulo', art.nombre);
 		setInnerHTMLById('art-nombre-borrar', art.nombre);
+		document.getElementById('boton-borrar-art').href = "/arts/borrar/"+id;
+		document.getElementById('boton-copiar-art').href = "/arts/copiar/"+id;
+		setInnerHTMLById('art-nombre-copiar', art.nombre);
+
 		for (var field in lista) {
 			setValueById('campo-'+lista[field], art[lista[field]]);
 		}
 	};
-	Ajax.get('arts/'+id, resultToForm);
+
+	if(id == 0) {
+		setInnerHTMLById('art-titulo', "Nuevo artículo");
+		for (var field in lista) {
+			setValueById('campo-'+lista[field], "");
+		}
+		setValueById('campo-id', "");
+		FORM.action = "/arts/nuevo";
+	} else {
+		Ajax.get('/arts/'+id, resultToForm);
+		FORM.action = "/arts/edit/" + id;
+	}
 	UIkit.modal(MODAL).show();
 }; 
 </script>

@@ -5,20 +5,20 @@
             <div class="uk-modal-title" id="art-titulo"></div>
         </div>
         <div class="uk-modal-body">
-		<!-- body -->
 
-		<ul class="uk-subnav uk-subnav-pill" uk-switcher>
+		<ul class="uk-subnav uk-subnav-pill" uk-switcher="animation: uk-animation-fade" >
 		    <li><a href="#">Datos</a></li>
 		    <li><a href="#">Tags</a></li>
+		    <li><a href="#">Copiar</a></li>
 		    <li><a href="#">Borrar</a></li>
 		</ul>
 
 		<ul class="uk-switcher uk-margin">
 		    <li><!------------------ DATOS --------------------->
 				<form  id="art-datos-form" action="/arts/edit/{{this._id}}" method="POST">
-				<input type="hidden" name="id" value="{{this._id}}">
+				<input type="hidden" id="campo-id" name="id" value="{{this._id}}">
 			    <div class="uk-margin">
-			        <!-- <label class="uk-form-label" for="campo-nombre">Denominación</label> -->
+
 					<div class="uk-form-controls-text">
         		    	<input class="uk-input uk-form-small" type="text"
 							id="campo-nombre" 
@@ -26,14 +26,15 @@
 							placeholder="Denominación"
 							value="{{this.nombre}}">
         			</div>
-			        <!-- <label class="uk-form-label" for="campo-tamano">Tamaño</label> -->
+					<p></p>
+
 			        <div class="uk-form-controls uk-form-controls-text">
 						<input class="uk-input uk-form-small uk-form-width-small" type="text" 
 							id="campo-tamano" 
 							name="tamano"
 							placeholder="Tamaño"
 							value="{{this.tamano}}">
-			        <!-- <label class="uk-form-label" for="campo-unidades">Unidades</label> -->
+
 						<select class="uk-select uk-form-small uk-form-width-small"
 							id="campo-unidades" 
 							placeholder="Unidades"
@@ -101,7 +102,17 @@
 			</li>
 
 
-
+		    <li><!------------------ COPIAR --------------------->
+			<div class="uk-flex uk-flex-center"> 
+					<div class="uk-card uk-card-default uk-card-body uk-card-secondary uk-align-center">¿Duplicar el art <strong><span id="art-nombre-copiar"></span></strong>?</div>
+				<p></p>
+			</div>
+			<hr>
+			<a id="boton-copiar-art" 
+				class="uk-button uk-button-primary uk-button-small uk-align-right"
+				href="X">Confirmar</a>
+			<a class="uk-button uk-button-default uk-button-primary uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
+			</li>
 
 
 		    <li><!------------------ BORRAR --------------------->
@@ -110,9 +121,10 @@
 				<p></p>
 			</div>
 			<hr>
-			<a class="uk-button uk-button-danger uk-button-small uk-align-right " href="/arts/delete/{{this._id}}">Confirmar</a>
+			<a id="boton-borrar-art" 
+				class="uk-button uk-button-danger uk-button-small uk-align-right"
+				href="X">Confirmar</a>
 			<a class="uk-button uk-button-default uk-button-primary uk-button-small uk-align-right uk-modal-close" >Cancelar</a>
-
 			</li>
 		</ul>
 		</div> 	<!-- /modal-body -->
