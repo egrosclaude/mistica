@@ -5,6 +5,7 @@ var router = express.Router();
 
 var Arts = require('../models/arts');
 var Tags = require('../models/tags');
+var Forms = require('../models/forms');
 var Ajax = require('../public/js/ajax');
 
 router.use((req, res, next) => {
@@ -33,12 +34,7 @@ router.post('/tags', Tags.create);
 router.get('/tags', Tags.list);
 
 
-router.get('/formulas', function(req, res) {
-  console.log('estoy en formulas');
-  res.render('formulas.hbs', { title: 'Fórmulas', message: 'Esta es la lista de fórmulas' });
-  
-});
-
+router.get('/forms', Forms.list);
 
 /* GET home page. */
 router.get('/', function(req, res) {

@@ -1,21 +1,16 @@
-// arts
+// forms
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var artsSchema = Schema({
+var formsSchema = Schema({
 	nombre: { type:String, required:true },
-	tamano: Number,
-	unidades: String,
-	costo: Number,
 	creadoEn: Date,
-	modificadoEn: { type: Date, default: Date.now },
-	tags: [{ type:Schema.ObjectId, ref:'Tags'}],
 });
 
-var Arts = mongoose.model('Art', artsSchema, 'arts');
-
-Arts.makekey = (req, res) => {
+var Forms = mongoose.model('Form', formsSchema, 'forms');
+/*
+Forms.makekey = (req, res) => {
 	var key = {};
 	if(req.query.search) {
 		const k = new RegExp(req.query.search, "i");
@@ -23,55 +18,33 @@ Arts.makekey = (req, res) => {
 	};
 	return key;
 };
+*/
 
 var Tags = require('../models/tags');
 
-Arts.list = (req,res) => {
-	console.log("arts.list");
-	Arts.find(Arts.makekey(req,res),
-			function (err, arts) {
+
+Forms.list = (req,res) => {
+	console.log("forms.list");
+	Forms.find({},
+			function (err, forms) {
         Tags.find(function (err, tags) {
 			//console.log(tags);
-            res.render('arts', {
-				title: 'Arts',
-                arts : arts,
+            res.render('forms', {
+				title: 'Forms',
+                forms : forms,
                 tags : tags
             });
         });
     }).sort('nombre');
 };
 
+/*
 Arts.tags = (req,res,next) => {
 
 	console.log('Grabando tags de art', req.body);
 	next();
 };
 
-
-/*
-const nuevoArt = (req,res,next) => {
-	console.log('RECIBIDO arts/nuevo',req.body);
-	var newArt = new Arts(req.body).save(function(err) {
-		if(!err) {
-			console.log('art grabado');
-			next();
-		}
-	});
-};
-*/
-/*
-exports.doCreate = (req, res) => {
-	new Arts({
-		nombre: req.body.nombre,
-		unidades: req.body.unidades,
-		costo: req.body.costo,
-		creadoEn : Date.now(),
-		modificadoEn : Date.now(),
-	}).save( (err, art) => {
-		if(!err) { console.log("Art creado", art); }
-	});
-};
-*/
 
 Arts.delete = (req,res,next) => {
 	console.log("delete: ", req.params);
@@ -131,5 +104,5 @@ Arts.edit = (req,res) => {
 	);
 
 };
-
-module.exports = Arts;
+*/
+module.exports = Forms;
